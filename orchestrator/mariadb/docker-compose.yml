@@ -1,0 +1,112 @@
+﻿services:
+  node1:
+    image: mariadb:11.4
+    container_name: mariadb-node1
+    hostname: mariadb-node1
+    cpus: "1.0"
+    mem_limit: "1g"
+    environment:
+      MARIADB_ROOT_PASSWORD: rootpass
+      MARIADB_DATABASE: remotedb
+      MARIADB_USER: bench
+      MARIADB_PASSWORD: bench
+    volumes:
+      - ./mariadb-conf/mariadb-node.cnf:/etc/mysql/conf.d/custom.cnf:ro
+      - mariadb-node1-data:/var/lib/mysql
+    networks:
+      - tesisnet
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb-admin ping -h 127.0.0.1 -uroot -prootpass --silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 20s
+
+  node2:
+    image: mariadb:11.4
+    container_name: mariadb-node2
+    hostname: mariadb-node2
+    cpus: "1.0"
+    mem_limit: "1g"
+    environment:
+      MARIADB_ROOT_PASSWORD: rootpass
+      MARIADB_DATABASE: remotedb
+      MARIADB_USER: bench
+      MARIADB_PASSWORD: bench
+    volumes:
+      - ./mariadb-conf/mariadb-node.cnf:/etc/mysql/conf.d/custom.cnf:ro
+      - mariadb-node2-data:/var/lib/mysql
+    networks:
+      - tesisnet
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb-admin ping -h 127.0.0.1 -uroot -prootpass --silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 20s
+
+  remotedb:
+    image: mariadb:11.4
+    container_name: mariadb-item
+    hostname: mariadb-item
+    cpus: "1.0"
+    mem_limit: "1g"
+    environment:
+      MARIADB_ROOT_PASSWORD: rootpass
+      MARIADB_DATABASE: remotedb
+      MARIADB_USER: bench
+      MARIADB_PASSWORD: bench
+    volumes:
+      - ./mariadb-conf/mariadb-remotedb.cnf:/etc/mysql/conf.d/custom.cnf:ro
+      - mariadb-item-data:/var/lib/mysql
+    networks:
+      - tesisnet
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb-admin ping -h 127.0.0.1 -uroot -prootpass --silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 20s
+
+  coordinator:
+    image: mariadb-spider:11.4
+    container_name: mariadb-coord
+    hostname: mariadb-coord
+    cpus: "2.0"
+    mem_limit: "2g"
+    ports:
+      - "127.0.0.1:3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: rootpass
+      MARIADB_DATABASE: tesisdb
+      MARIADB_USER: bench
+      MARIADB_PASSWORD: bench
+    volumes:
+      - ./mariadb-conf/mariadb-coordinator.cnf:/etc/mysql/conf.d/custom.cnf:ro
+      - ./init:/init:ro
+      - mariadb-coord-data:/var/lib/mysql
+    networks:
+      - tesisnet
+    depends_on:
+      node1:
+        condition: service_healthy
+      node2:
+        condition: service_healthy
+      remotedb:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb-admin ping -h 127.0.0.1 -uroot -prootpass --silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 20s
+
+networks:
+  tesisnet:
+    driver: bridge
+
+volumes:
+  mariadb-node1-data:
+  mariadb-node2-data:
+  mariadb-item-data:
+  mariadb-coord-data:

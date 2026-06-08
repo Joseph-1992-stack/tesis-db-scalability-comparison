@@ -1,0 +1,5 @@
+INSTALL SONAME 'ha_spider';
+
+SELECT ENGINE, SUPPORT
+FROM information_schema.ENGINES
+WHERE ENGINE = 'SPIDER';

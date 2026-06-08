@@ -1,0 +1,2 @@
+﻿[mariadbd]
+plugin_load_add=ha_spider

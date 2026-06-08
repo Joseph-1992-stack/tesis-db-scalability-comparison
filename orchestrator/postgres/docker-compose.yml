@@ -1,0 +1,156 @@
+﻿services:
+  worker1:
+    # Citus extension 13.2-1 (incluye PostgreSQL 17.6 al momento del pull)
+    # Digest fijo para reproducibilidad
+    image: citusdata/citus@sha256:2b67bc2190ffbde221c19696bbffde45a2ee22e2c371f8a435d67eb674bdeb46
+    container_name: postgresql-worker1
+    hostname: postgresql-worker1
+    cpus: "1.0"
+    mem_limit: "1g"
+    shm_size: "512m"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tesisdb
+    volumes:
+      - ./postgres-conf/postgresql-worker.conf:/etc/postgresql/postgresql.conf:ro
+      - ./postgres-conf/pg_hba.conf:/etc/postgresql/pg_hba.conf:ro
+      - postgresql-worker1-data:/var/lib/postgresql/data
+    command: >
+      postgres
+      -c config_file=/etc/postgresql/postgresql.conf
+      -c hba_file=/etc/postgresql/pg_hba.conf
+    networks:
+      - tesisnet
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -h 127.0.0.1 -p 5432 -U $$POSTGRES_USER -d $$POSTGRES_DB --timeout=5 --quiet || pg_isready -h postgresql-worker1 -p 5432 -U $$POSTGRES_USER -d $$POSTGRES_DB --timeout=5 --quiet"
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 20s
+
+  worker2:
+    # Citus 13.2.0 (incluye PostgreSQL 17.6 al momento del pull)
+    # Digest fijo para reproducibilidad
+    image: citusdata/citus@sha256:2b67bc2190ffbde221c19696bbffde45a2ee22e2c371f8a435d67eb674bdeb46
+    container_name: postgresql-worker2
+    hostname: postgresql-worker2
+    cpus: "1.0"
+    mem_limit: "1g"
+    shm_size: "512m"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tesisdb
+    volumes:
+      - ./postgres-conf/postgresql-worker.conf:/etc/postgresql/postgresql.conf:ro
+      - ./postgres-conf/pg_hba.conf:/etc/postgresql/pg_hba.conf:ro
+      - postgresql-worker2-data:/var/lib/postgresql/data
+    command: >
+      postgres
+      -c config_file=/etc/postgresql/postgresql.conf
+      -c hba_file=/etc/postgresql/pg_hba.conf
+    networks:
+      - tesisnet
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -h 127.0.0.1 -p 5432 -U $$POSTGRES_USER -d $$POSTGRES_DB --timeout=5 --quiet || pg_isready -h postgresql-worker2 -p 5432 -U $$POSTGRES_USER -d $$POSTGRES_DB --timeout=5 --quiet"
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 20s
+
+  remotedb:
+    # PostgreSQL 17.5 (remotedb para FDW)
+    # Digest fijo para reproducibilidad
+    image: postgres@sha256:aadf2c0696f5ef357aa7a68da995137f0cf17bad0bf6e1f17de06ae5c769b302
+    container_name: postgresql-item
+    hostname: postgresql-item
+    cpus: "1.0"
+    mem_limit: "1g"
+    shm_size: "512m"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: remotedb
+    volumes:
+      - ./postgres-conf/postgresql-remotedb.conf:/etc/postgresql/postgresql.conf:ro
+      - ./postgres-conf/pg_hba.conf:/etc/postgresql/pg_hba.conf:ro
+      - postgresql-item-data:/var/lib/postgresql/data
+    command: >
+      postgres
+      -c config_file=/etc/postgresql/postgresql.conf
+      -c hba_file=/etc/postgresql/pg_hba.conf
+    networks:
+      - tesisnet
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -h 127.0.0.1 -p 5432 -U $$POSTGRES_USER -d $$POSTGRES_DB --timeout=5 --quiet || pg_isready -h postgresql-item -p 5432 -U $$POSTGRES_USER -d $$POSTGRES_DB --timeout=5 --quiet"
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 10s
+
+  coordinator:
+    # Citus 13.2.0 (incluye PostgreSQL 17.6 al momento del pull)
+    # Digest fijo para reproducibilidad
+    image: citusdata/citus@sha256:2b67bc2190ffbde221c19696bbffde45a2ee22e2c371f8a435d67eb674bdeb46
+    container_name: postgresql-coord
+    hostname: postgresql-coord
+    cpus: "2.0"
+    mem_limit: "2g"
+    shm_size: "1g"
+    ports:
+      - "127.0.0.1:5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tesisdb
+    volumes:
+      - ./postgres-conf/postgresql-coordinator.conf:/etc/postgresql/postgresql.conf:ro
+      - ./postgres-conf/pg_hba.conf:/etc/postgresql/pg_hba.conf:ro
+      - ./init:/init:ro
+      - postgresql-coord-data:/var/lib/postgresql/data
+    command: >
+      postgres
+      -c config_file=/etc/postgresql/postgresql.conf
+      -c hba_file=/etc/postgresql/pg_hba.conf
+    networks:
+      - tesisnet
+    depends_on:
+      worker1:
+        condition: service_healthy
+      worker2:
+        condition: service_healthy
+      remotedb:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -h 127.0.0.1 -p 5432 -U $$POSTGRES_USER -d $$POSTGRES_DB --timeout=5 --quiet || pg_isready -h postgresql-coord -p 5432 -U $$POSTGRES_USER -d $$POSTGRES_DB --timeout=5 --quiet"
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 10s
+
+networks:
+  tesisnet:
+    driver: bridge
+
+volumes:
+  postgresql-worker1-data:
+  postgresql-worker2-data:
+  postgresql-item-data:
+  postgresql-coord-data:

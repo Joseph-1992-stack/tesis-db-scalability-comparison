@@ -1,0 +1,32 @@
+﻿<?xml version="1.0"?>
+<parameters>
+
+  <type>POSTGRES</type>
+  <driver>org.postgresql.Driver</driver>
+  <url>jdbc:postgresql://postgresql-coord:5432/tesisdb</url>
+  <username>postgres</username>
+  <password>postgres</password>
+
+  <isolation>TRANSACTION_SERIALIZABLE</isolation>
+  <batchsize>128</batchsize>
+
+  <query_templates_file>/cfg/queries.xml</query_templates_file>
+  <scalefactor>1</scalefactor>
+
+  <terminals>50</terminals>
+
+  <works>
+    <work>
+      <warmup>60</warmup>
+      <time>300</time>
+      <rate>unlimited</rate>
+      <weights>50,50</weights>
+    </work>
+  </works>
+
+  <transactiontypes>
+    <transactiontype><name>ReadJoinItem</name></transactiontype>
+    <transactiontype><name>UpdateStock</name></transactiontype>
+  </transactiontypes>
+
+</parameters>

@@ -1,0 +1,7 @@
+[mariadb]
+bind-address=0.0.0.0
+max_connections=200
+
+innodb_buffer_pool_size=384M
+tmp_table_size=32M
+max_heap_table_size=32M

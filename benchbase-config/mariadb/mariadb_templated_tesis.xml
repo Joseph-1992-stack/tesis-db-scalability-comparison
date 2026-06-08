@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <type>MARIADB</type>
+  <driver>org.mariadb.jdbc.Driver</driver>
+  <url>jdbc:mariadb://mariadb-coord:3306/tesisdb</url>
+  <username>bench</username>
+  <password>benchpass</password>
+
+  <terminals>4</terminals>
+
+  <!-- Para cubrir builds distintos: lo ponemos en ambos lados -->
+  <query_templates_file>/cfg/templated/example.xml</query_templates_file>
+  <parameters>
+    <query_templates_file>/cfg/templated/example.xml</query_templates_file>
+  </parameters>
+
+  <!-- Deben coincidir con los name="..." de tus <template> -->
+  <transactiontypes>
+    <transactiontype><name>ReadCustomer</name></transactiontype>
+    <transactiontype><name>UpdateCustomer</name></transactiontype>
+  </transactiontypes>
+
+  <works>
+    <work>
+      <warmup>10</warmup>
+      <time>60</time>
+      <rate>unlimited</rate>
+      <weights>50,50</weights>
+    </work>
+  </works>
+</configuration>

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+  <!--
+    ReadJoinItem:
+    JOIN controlado entre tabla distribuida (customer) y tabla federada (item vÃ­a FDW).
+
+    La selecciÃ³n del item remoto se restringe a 10 Ã­tems por warehouse,
+    evitando un hotspot global sobre los mismos 10 registros para todos los almacenes.
+    AsÃ­ se mantiene el JOIN acotado y reproducible, pero con mejor distribuciÃ³n del acceso.
+  -->
+  <template name="ReadJoinItem">
+    <query><![CDATA[
+      SELECT c.c_id, i.i_price
+      FROM tpcc.customer c
+      JOIN tpcc.item i
+        ON i.i_id = (((c.c_w_id - 1) * 10) + (c.c_id % 10) + 1)
+      WHERE c.c_w_id = ?
+      ORDER BY c.c_id
+      LIMIT 10
+    ]]></query>
+    <types>
+      <type>INTEGER</type>
+    </types>
+    <values>
+      <value dist="uniform" min="1" max="10"/>
+    </values>
+  </template>
+
+  <!--
+    UpdateStock:
+    ActualizaciÃ³n controlada sobre stock distribuido.
+  -->
+  <template name="UpdateStock">
+    <query><![CDATA[
+      UPDATE tpcc.stock
+      SET s_quantity = CASE WHEN s_quantity > 0 THEN s_quantity - 1 ELSE 0 END
+      WHERE s_w_id = ? AND s_i_id = ?
+    ]]></query>
+    <types>
+      <type>INTEGER</type>
+      <type>INTEGER</type>
+    </types>
+    <values>
+      <value dist="uniform" min="1" max="10"/>
+      <value dist="uniform" min="1" max="100000"/>
+    </values>
+  </template>
+</templates>

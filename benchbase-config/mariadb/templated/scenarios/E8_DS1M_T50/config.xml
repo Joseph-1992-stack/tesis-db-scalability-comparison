@@ -1,0 +1,41 @@
+﻿<?xml version="1.0"?>
+<parameters>
+
+  <type>MARIADB</type>
+  <driver>org.mariadb.jdbc.Driver</driver>
+
+  <url>jdbc:mariadb://mariadb-coord:3306/tesisdb</url>
+
+  <username>bench</username>
+  <password>bench</password>
+
+  <isolation>TRANSACTION_SERIALIZABLE</isolation>
+
+  <batchsize>128</batchsize>
+
+  <query_templates_file>/cfg/queries.xml</query_templates_file>
+
+  <scalefactor>1</scalefactor>
+
+  <terminals>50</terminals>
+
+  <works>
+    <work>
+      <warmup>60</warmup>
+      <time>300</time>
+      <rate>unlimited</rate>
+      <weights>50,50</weights>
+    </work>
+  </works>
+
+  <transactiontypes>
+    <transactiontype>
+      <name>ReadJoinItem</name>
+    </transactiontype>
+
+    <transactiontype>
+      <name>UpdateStock</name>
+    </transactiontype>
+  </transactiontypes>
+
+</parameters>

@@ -1,0 +1,14 @@
+﻿results/
+benchbase/runtime/
+*.log
+*.raw.csv
+*.samples.csv
+*.results.csv
+*.summary.json
+*.metrics.json
+*.params.json
+*.tmp
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
