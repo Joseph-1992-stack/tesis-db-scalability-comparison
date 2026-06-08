@@ -1,4 +1,4 @@
-#requires -Version 5.1
+﻿#requires -Version 5.1
 param(
   [string]$ProjectDir  = "C:\tesis-db\orchestrator\postgres",
   [string]$ComposeFile = "docker-compose.yml",
@@ -90,7 +90,7 @@ function Exec-PsqlOn {
 $root = "C:\tesis-db"
 $initDir = Join-Path $ProjectDir "init"
 
-$loadScript  = Join-Path $root "automation\pg\pg_load_tpcc.ps1"
+$loadScript  = Join-Path $root "automation\dataset-loader\pg_load_tpcc.ps1"
 $benchScript = Join-Path $root "automation\run_benchbase_templated.ps1"
 $parseScript = Join-Path $root "automation\parse_bechbase.ps1"
 
@@ -98,7 +98,7 @@ $parseScript = Join-Path $root "automation\parse_bechbase.ps1"
 # 1) Recreate (opcional)
 # ---------------------------
 if ($Recreate) {
-  Write-Host "Bajando stack (volúmenes incluidos)..." -ForegroundColor Yellow
+  Write-Host "Bajando stack (volÃºmenes incluidos)..." -ForegroundColor Yellow
   Invoke-Compose @("down","-v")
 }
 
@@ -116,14 +116,14 @@ Write-Host "Esperando HEALTHY: $($containers -join ', ')" -ForegroundColor Green
 Wait-Healthy -Containers $containers -TimeoutSec 240
 
 # ---------------------------
-# 4) Bitácora: versiones
+# 4) BitÃ¡cora: versiones
 # ---------------------------
 Write-Host "`n==> Versiones detectadas (coordinator)" -ForegroundColor Green
 Exec-PsqlOn -Container "postgresql-coord" -Db "tesisdb" -User "postgres" -Sql "SELECT version();"
 Exec-PsqlOn -Container "postgresql-coord" -Db "tesisdb" -User "postgres" -Sql "SELECT extname, extversion FROM pg_extension WHERE extname IN ('citus','postgres_fdw') ORDER BY extname;"
 
 # ---------------------------
-# 5) SQL homogéneo: 01 en remotedb / 02..06 en coordinator
+# 5) SQL homogÃ©neo: 01 en remotedb / 02..06 en coordinator
 # ---------------------------
 
 # 01 en remotedb
@@ -144,13 +144,13 @@ $idx = Join-Path $initDir "06_tpcc_secondary_indexes.sql"
 if (Test-Path $idx) {
   Exec-PsqlFileOn -Container "postgresql-coord" -Db "tesisdb" -User "postgres" -SqlPath $idx
 } else {
-  Write-Host "Aviso: no existe 06_tpcc_secondary_indexes.sql (omitiendo índices secundarios)." -ForegroundColor Yellow
+  Write-Host "Aviso: no existe 06_tpcc_secondary_indexes.sql (omitiendo Ã­ndices secundarios)." -ForegroundColor Yellow
 }
 
 # ---------------------------
-# 6) Validaciones rápidas
+# 6) Validaciones rÃ¡pidas
 # ---------------------------
-Write-Host "`n==> Validaciones (rápidas)" -ForegroundColor Green
+Write-Host "`n==> Validaciones (rÃ¡pidas)" -ForegroundColor Green
 Exec-PsqlOn -Container "postgresql-coord" -Db "tesisdb" -User "postgres" -Sql "SELECT * FROM citus_get_active_worker_nodes();"
 Exec-PsqlOn -Container "postgresql-coord" -Db "tesisdb" -User "postgres" -Sql "SELECT COUNT(*) AS shards FROM pg_dist_shard WHERE logicalrelid::text LIKE 'tpcc.%';"
 Exec-PsqlOn -Container "postgresql-coord" -Db "tesisdb" -User "postgres" -Sql "SELECT COUNT(*) AS item_rows_fdw FROM tpcc.item;"
@@ -165,7 +165,7 @@ if ($RunLoad) {
 }
 
 # ---------------------------
-# 8) (Opcional) BenchBase por grupo de escenarios según Scale
+# 8) (Opcional) BenchBase por grupo de escenarios segÃºn Scale
 # ---------------------------
 if ($RunBench) {
   if (!(Test-Path $benchScript)) { throw "No existe bench script: $benchScript" }
@@ -191,4 +191,4 @@ if ($RunParse) {
   & $parseScript -Db "postgres" -Workload "templated"
 }
 
-Write-Host "`n✅ MASTER PostgreSQL finalizado." -ForegroundColor Green
+Write-Host "`nâœ… MASTER PostgreSQL finalizado." -ForegroundColor Green
