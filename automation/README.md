@@ -24,7 +24,7 @@ automation
 ├── postgres
 │   └── master_postgres.ps1
 │
-├── pg
+├── dataset-loader
 │   └── pg_load_tpcc.ps1
 │
 └── run_benchbase_templated.ps1
