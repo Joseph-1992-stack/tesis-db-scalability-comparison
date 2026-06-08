@@ -50,14 +50,15 @@ DS1M:
 - T10
 - T50
 - T100
+
 Donde: 
-- DS = tamaño del conjunto de datos
-- T  = número de terminales concurrentes de BenchBase
+DS = tamaño del conjunto de datos
+T  = número de terminales concurrentes de BenchBase
 
 ## Estructura general del repositorio 
 El repositorio se encuentra organizada en cuatro directorios principales
 
-# automation/
+## automation/
 Contiene los scripts PowerShell encargados de automatizar el despliegue, preparación y ejecuciónb de los experimentos.
 Principales componentes:
 
@@ -68,7 +69,7 @@ Principales componentes:
 
 Estos scripts permiten reproducir completamente los escenarios experimentales.
 
-# orchestrator/
+## orchestrator/
 Contiene toda la infraestructura necesaria para desplegar los entornos distribuidos mediante Docker Compose.
 
 Incluye:
@@ -81,7 +82,7 @@ Incluye:
 
 Su propósito es construir automáticamente los clústeres utilizados durante los experimentos.
 
-# benchbase-config/
+## benchbase-config/
 Contiene la configuración de las cargas de trabajo ejecutadas por BenchBase.
 
 Incluye:
@@ -93,7 +94,7 @@ Incluye:
 
 Aquí se definen las transacciones utilizadas para medir el rendimiento de los gestores de bases de datos.
 
-# automation/
+## automation/
 Contiene scripts auxiliares relacionados con la preparación de datasets y carga de información.
 
 Incluye:
