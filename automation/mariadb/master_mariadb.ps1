@@ -121,6 +121,7 @@ function Exec-MariaDbOn {
 $root = "C:\tesis-db"
 $initDir = Join-Path $ProjectDir "init"
 
+# Futuro loader MariaDB (actualmente no implementado)
 $loadScript  = Join-Path $root "automation\mariadb\mariadb_load_tpcc.ps1"
 $benchScript = Join-Path $root "automation\run_benchbase_mariadb_templated.ps1"
 $parseScript = Join-Path $root "automation\parse_bechbase.ps1"
