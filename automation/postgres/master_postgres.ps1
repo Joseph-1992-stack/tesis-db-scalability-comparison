@@ -4,7 +4,7 @@ param(
   [string]$ComposeFile = "docker-compose.yml",
   [string]$DockerNet   = "postgres_tesisnet",
 
-  # Carga de datos controlada por escala (consume pg_load_tpcc.ps1 + tpcc_params.ps1)
+  # Carga de datos controlada por escala (consume postgres_load_tpcc.ps1 + tpcc_params.ps1)
   [ValidateSet("ds100k","ds500k","ds1m")]
   [string]$Scale = "ds100k",
 
@@ -13,7 +13,7 @@ param(
 
   # switches para controlar etapas
   [switch]$Recreate,      # docker compose down -v antes de levantar
-  [switch]$RunLoad,       # ejecuta pg_load_tpcc.ps1
+  [switch]$RunLoad,       # ejecuta postgres_load_tpcc.ps1
   [switch]$RunBench,      # ejecuta run_benchbase_templated.ps1
   [switch]$RunParse       # ejecuta parse_bechbase.ps1
 )
@@ -90,7 +90,7 @@ function Exec-PsqlOn {
 $root = "C:\tesis-db"
 $initDir = Join-Path $ProjectDir "init"
 
-$loadScript  = Join-Path $root "automation\dataset-loader\pg_load_tpcc.ps1"
+$loadScript  = Join-Path $root "automation\dataset-loader\postgres_load_tpcc.ps1"
 $benchScript = Join-Path $root "automation\run_benchbase_templated.ps1"
 $parseScript = Join-Path $root "automation\parse_bechbase.ps1"
 
@@ -160,7 +160,7 @@ Exec-PsqlOn -Container "postgresql-coord" -Db "tesisdb" -User "postgres" -Sql "S
 # ---------------------------
 if ($RunLoad) {
   if (!(Test-Path $loadScript)) { throw "No existe loader: $loadScript" }
-  Write-Host "`n==> CARGA DATASET (Scale=$Scale) usando pg_load_tpcc.ps1" -ForegroundColor Green
+  Write-Host "`n==> CARGA DATASET (Scale=$Scale) usando postgres_load_tpcc.ps1" -ForegroundColor Green
   & $loadScript -Scale $Scale
 }
 

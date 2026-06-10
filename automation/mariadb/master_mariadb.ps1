@@ -1,4 +1,4 @@
-#requires -Version 5.1
+﻿#requires -Version 5.1
 param(
   [string]$ProjectDir  = "C:\tesis-db\orchestrator\mariadb",
   [string]$ComposeFile = "docker-compose.yml",
@@ -88,7 +88,7 @@ function Exec-MariaDbFileOn {
   Get-Content -Path $SqlPath -Raw | docker @dockerArgs
 
   if ($LASTEXITCODE -ne 0) {
-    throw "Falló la ejecución SQL en $Container :: $SqlPath"
+    throw "FallÃ³ la ejecuciÃ³n SQL en $Container :: $SqlPath"
   }
 }
 
@@ -114,7 +114,7 @@ function Exec-MariaDbOn {
   docker @dockerArgs
 
   if ($LASTEXITCODE -ne 0) {
-    throw "Falló la consulta en $Container :: $Sql"
+    throw "FallÃ³ la consulta en $Container :: $Sql"
   }
 }
 
@@ -122,12 +122,12 @@ $root = "C:\tesis-db"
 $initDir = Join-Path $ProjectDir "init"
 
 # Futuro loader MariaDB (actualmente no implementado)
-$loadScript  = Join-Path $root "automation\mariadb\mariadb_load_tpcc.ps1"
+$loadScript  = Join-Path $root "automation\dataset-loader\mariadb_load_tpcc.ps1"
 $benchScript = Join-Path $root "automation\run_benchbase_mariadb_templated.ps1"
 $parseScript = Join-Path $root "automation\parse_bechbase.ps1"
 
 if ($Recreate) {
-  Write-Host "Bajando stack MariaDB (volúmenes incluidos)..." -ForegroundColor Yellow
+  Write-Host "Bajando stack MariaDB (volÃºmenes incluidos)..." -ForegroundColor Yellow
   Invoke-Compose @("down","-v")
 }
 
@@ -156,10 +156,10 @@ $idx = Join-Path $initDir "06_tpcc_secondary_indexes.sql"
 if (Test-Path $idx) {
   Exec-MariaDbFileOn -Container "mariadb-coord" -SqlPath $idx
 } else {
-  Write-Host "Aviso: no existe 06_tpcc_secondary_indexes.sql (omitiendo índices secundarios)." -ForegroundColor Yellow
+  Write-Host "Aviso: no existe 06_tpcc_secondary_indexes.sql (omitiendo Ã­ndices secundarios)." -ForegroundColor Yellow
 }
 
-Write-Host "`n==> Validaciones rápidas MariaDB + Spider" -ForegroundColor Green
+Write-Host "`n==> Validaciones rÃ¡pidas MariaDB + Spider" -ForegroundColor Green
 
 Exec-MariaDbOn -Container "mariadb-coord" -Sql "USE tesisdb; SHOW TABLES;"
 Exec-MariaDbOn -Container "mariadb-coord" -Sql "USE tesisdb; SELECT COUNT(*) AS item_rows_spider FROM item;"
@@ -205,4 +205,4 @@ if ($RunParse) {
     -ScenarioConfigRoot "C:\tesis-db\benchbase-config\mariadb\templated\scenarios"
 }
 
-Write-Host "`n✅ MASTER MariaDB finalizado." -ForegroundColor Green
+Write-Host "`nâœ… MASTER MariaDB finalizado." -ForegroundColor Green

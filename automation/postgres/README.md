@@ -1,16 +1,16 @@
-# PostgreSQL Automation
+﻿# PostgreSQL Automation
 
-## Descripción
+## DescripciÃ³n
 
 Esta carpeta contiene el script maestro utilizado para automatizar completamente el entorno experimental de PostgreSQL.
 
-La automatización fue diseñada para reproducir de forma consistente la arquitectura distribuida evaluada en la investigación:
+La automatizaciÃ³n fue diseÃ±ada para reproducir de forma consistente la arquitectura distribuida evaluada en la investigaciÃ³n:
 
 * PostgreSQL 17
 * Citus
 * postgres_fdw
 
-utilizando contenedores Docker y scripts SQL de inicialización.
+utilizando contenedores Docker y scripts SQL de inicializaciÃ³n.
 
 ---
 
@@ -18,9 +18,9 @@ utilizando contenedores Docker y scripts SQL de inicialización.
 
 ```text
 postgres
-│
-├── master_postgres.ps1
-└── README.md
+â”‚
+â”œâ”€â”€ master_postgres.ps1
+â””â”€â”€ README.md
 ```
 
 ---
@@ -33,12 +33,12 @@ Script encargado de orquestar todo el ciclo experimental para PostgreSQL.
 
 Permite ejecutar de forma automatizada:
 
-* Despliegue del clúster.
-* Configuración de Citus.
-* Configuración de postgres_fdw.
-* Inicialización del esquema experimental.
+* Despliegue del clÃºster.
+* ConfiguraciÃ³n de Citus.
+* ConfiguraciÃ³n de postgres_fdw.
+* InicializaciÃ³n del esquema experimental.
 * Carga de datasets.
-* Ejecución de BenchBase.
+* EjecuciÃ³n de BenchBase.
 * Procesamiento de resultados.
 
 ---
@@ -51,7 +51,7 @@ El script trabaja sobre la arquitectura definida en:
 orchestrator/postgres
 ```
 
-La topología experimental está compuesta por:
+La topologÃ­a experimental estÃ¡ compuesta por:
 
 * Coordinator Node
 * Worker Node 1
@@ -62,13 +62,13 @@ El nodo coordinador recibe todas las conexiones de BenchBase y distribuye intern
 
 ---
 
-## Flujo de ejecución
+## Flujo de ejecuciÃ³n
 
 El script sigue la siguiente secuencia:
 
-### 1. Recreación del entorno (opcional)
+### 1. RecreaciÃ³n del entorno (opcional)
 
-Permite eliminar completamente los contenedores y volúmenes existentes.
+Permite eliminar completamente los contenedores y volÃºmenes existentes.
 
 ```powershell
 -Recreate
@@ -76,13 +76,13 @@ Permite eliminar completamente los contenedores y volúmenes existentes.
 
 ---
 
-### 2. Despliegue del clúster
+### 2. Despliegue del clÃºster
 
 Levanta todos los contenedores definidos en Docker Compose.
 
 ---
 
-### 3. Validación de salud
+### 3. ValidaciÃ³n de salud
 
 Verifica que todos los nodos alcancen estado:
 
@@ -94,25 +94,25 @@ antes de continuar.
 
 ---
 
-### 4. Validación de versiones
+### 4. ValidaciÃ³n de versiones
 
 Registra:
 
-* versión de PostgreSQL
-* versión de Citus
-* versión de postgres_fdw
+* versiÃ³n de PostgreSQL
+* versiÃ³n de Citus
+* versiÃ³n de postgres_fdw
 
 ---
 
-### 5. Inicialización de la arquitectura
+### 5. InicializaciÃ³n de la arquitectura
 
 Ejecuta los scripts SQL responsables de:
 
-* creación del esquema TPC-C reducido
-* incorporación de nodos Citus
-* configuración de FDW
-* distribución de tablas
-* creación de índices
+* creaciÃ³n del esquema TPC-C reducido
+* incorporaciÃ³n de nodos Citus
+* configuraciÃ³n de FDW
+* distribuciÃ³n de tablas
+* creaciÃ³n de Ã­ndices
 
 ---
 
@@ -131,7 +131,7 @@ Comprueba:
 Mediante:
 
 ```text
-automation/dataset-loader/pg_load_tpcc.ps1
+automation/dataset-loader/postgres_load_tpcc.ps1
 ```
 
 Permite generar los datasets:
@@ -142,9 +142,9 @@ Permite generar los datasets:
 
 ---
 
-### 8. Ejecución de BenchBase (opcional)
+### 8. EjecuciÃ³n de BenchBase (opcional)
 
-Ejecuta automáticamente los escenarios experimentales correspondientes a la escala seleccionada.
+Ejecuta automÃ¡ticamente los escenarios experimentales correspondientes a la escala seleccionada.
 
 Ejemplos:
 
@@ -158,16 +158,16 @@ E3_DS100k_T100
 
 ### 9. Procesamiento de resultados (opcional)
 
-Permite consolidar los resultados obtenidos para su posterior análisis estadístico.
+Permite consolidar los resultados obtenidos para su posterior anÃ¡lisis estadÃ­stico.
 
 ---
 
-## Parámetros principales
+## ParÃ¡metros principales
 
-| Parámetro | Función                              |
+| ParÃ¡metro | FunciÃ³n                              |
 | --------- | ------------------------------------ |
 | Scale     | Selecciona DS100k, DS500k o DS1M     |
-| Runs      | Número de repeticiones               |
+| Runs      | NÃºmero de repeticiones               |
 | Recreate  | Reconstruye completamente el entorno |
 | RunLoad   | Ejecuta la carga de datos            |
 | RunBench  | Ejecuta BenchBase                    |
@@ -177,4 +177,4 @@ Permite consolidar los resultados obtenidos para su posterior análisis estadís
 
 ## Objetivo
 
-Garantizar que todos los experimentos realizados sobre PostgreSQL sean reproducibles, controlados y consistentes, minimizando la intervención manual durante las fases de despliegue y ejecución.
+Garantizar que todos los experimentos realizados sobre PostgreSQL sean reproducibles, controlados y consistentes, minimizando la intervenciÃ³n manual durante las fases de despliegue y ejecuciÃ³n.

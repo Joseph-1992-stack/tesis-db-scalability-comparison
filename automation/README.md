@@ -1,12 +1,12 @@
-# Automation
+﻿# Automation
 
-## Descripción
+## DescripciÃ³n
 
-Esta carpeta contiene los scripts PowerShell utilizados para automatizar la ejecución de los experimentos desarrollados en la investigación.
+Esta carpeta contiene los scripts PowerShell utilizados para automatizar la ejecuciÃ³n de los experimentos desarrollados en la investigaciÃ³n.
 
-Su objetivo es garantizar la reproducibilidad de los escenarios experimentales, minimizando la intervención manual durante el despliegue, carga de datos, ejecución de BenchBase y validación de resultados.
+Su objetivo es garantizar la reproducibilidad de los escenarios experimentales, minimizando la intervenciÃ³n manual durante el despliegue, carga de datos, ejecuciÃ³n de BenchBase y validaciÃ³n de resultados.
 
-La automatización fue diseñada para permitir la ejecución homogénea de las arquitecturas:
+La automatizaciÃ³n fue diseÃ±ada para permitir la ejecuciÃ³n homogÃ©nea de las arquitecturas:
 
 * PostgreSQL + Citus + postgres_fdw
 * MariaDB + Spider Storage Engine
@@ -17,17 +17,17 @@ La automatización fue diseñada para permitir la ejecución homogénea de las a
 
 ```text
 automation
-│
-├── mariadb
-│   └── master_mariadb.ps1
-│
-├── postgres
-│   └── master_postgres.ps1
-│
-├── dataset-loader
-│   └── pg_load_tpcc.ps1
-│
-└── run_benchbase_templated.ps1
+â”‚
+â”œâ”€â”€ mariadb
+â”‚   â””â”€â”€ master_mariadb.ps1
+â”‚
+â”œâ”€â”€ postgres
+â”‚   â””â”€â”€ master_postgres.ps1
+â”‚
+â”œâ”€â”€ dataset-loader
+â”‚   â””â”€â”€ postgres_load_tpcc.ps1
+â”‚
+â””â”€â”€ run_benchbase_templated.ps1
 ```
 
 ---
@@ -42,11 +42,11 @@ Funciones principales:
 
 * Levantar contenedores Docker.
 * Verificar estado HEALTHY de los nodos.
-* Ejecutar scripts SQL de inicialización.
+* Ejecutar scripts SQL de inicializaciÃ³n.
 * Configurar Citus y postgres_fdw.
 * Cargar datasets experimentales.
 * Ejecutar BenchBase.
-* Lanzar procesos de análisis posteriores.
+* Lanzar procesos de anÃ¡lisis posteriores.
 
 Este script constituye el punto de entrada principal para los experimentos sobre PostgreSQL.
 
@@ -65,13 +65,13 @@ Funciones principales:
 * Crear tablas distribuidas.
 * Cargar datasets experimentales.
 * Ejecutar BenchBase.
-* Lanzar procesos de análisis posteriores.
+* Lanzar procesos de anÃ¡lisis posteriores.
 
 Este script constituye el punto de entrada principal para los experimentos sobre MariaDB.
 
 ---
 
-### pg_load_tpcc.ps1
+### postgres_load_tpcc.ps1
 
 Script encargado de generar y cargar los datasets experimentales para PostgreSQL.
 
@@ -81,7 +81,7 @@ Permite construir los conjuntos de datos:
 * DS500k
 * DS1M
 
-Mediante la inserción controlada de registros en las tablas:
+Mediante la inserciÃ³n controlada de registros en las tablas:
 
 * warehouse
 * district
@@ -89,41 +89,41 @@ Mediante la inserción controlada de registros en las tablas:
 * stock
 * item
 
-Su función es garantizar que cada escenario experimental inicie desde una configuración consistente y reproducible.
+Su funciÃ³n es garantizar que cada escenario experimental inicie desde una configuraciÃ³n consistente y reproducible.
 
 ---
 
 ### run_benchbase_templated.ps1
 
-Script genérico utilizado para ejecutar BenchBase sobre cualquiera de los gestores de bases de datos evaluados.
+Script genÃ©rico utilizado para ejecutar BenchBase sobre cualquiera de los gestores de bases de datos evaluados.
 
-Características:
+CaracterÃ­sticas:
 
 * Compatible con PostgreSQL y MariaDB.
 * Ejecuta escenarios individuales o grupos completos.
-* Gestiona múltiples repeticiones experimentales.
-* Almacena automáticamente los resultados.
-* Conserva archivos de salida y registros de ejecución.
+* Gestiona mÃºltiples repeticiones experimentales.
+* Almacena automÃ¡ticamente los resultados.
+* Conserva archivos de salida y registros de ejecuciÃ³n.
 
-Este script constituye el núcleo de la automatización de benchmarking del proyecto.
+Este script constituye el nÃºcleo de la automatizaciÃ³n de benchmarking del proyecto.
 
 ---
 
 ## Flujo experimental general
 
-La secuencia típica de ejecución es:
+La secuencia tÃ­pica de ejecuciÃ³n es:
 
-1. Despliegue del clúster distribuido.
-2. Configuración de la arquitectura correspondiente.
+1. Despliegue del clÃºster distribuido.
+2. ConfiguraciÃ³n de la arquitectura correspondiente.
 3. Carga del dataset experimental.
-4. Ejecución de BenchBase.
-5. Recolección de resultados.
-6. Análisis de métricas.
+4. EjecuciÃ³n de BenchBase.
+5. RecolecciÃ³n de resultados.
+6. AnÃ¡lisis de mÃ©tricas.
 
 Todo el proceso puede ejecutarse de forma automatizada mediante los scripts maestros incluidos en esta carpeta.
 
 ---
 
-## Observación
+## ObservaciÃ³n
 
-Los scripts fueron desarrollados específicamente para los escenarios definidos en la tesis y utilizan rutas locales configuradas para el entorno experimental descrito en la investigación.
+Los scripts fueron desarrollados especÃ­ficamente para los escenarios definidos en la tesis y utilizan rutas locales configuradas para el entorno experimental descrito en la investigaciÃ³n.

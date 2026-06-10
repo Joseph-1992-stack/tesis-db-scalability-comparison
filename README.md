@@ -59,13 +59,13 @@ T  = número de terminales concurrentes de BenchBase
 El repositorio se encuentra organizada en cuatro directorios principales
 
 ## automation/
-Contiene los scripts PowerShell encargados de automatizar el despliegue, preparación y ejecuciónb de los experimentos.
+Contiene los scripts PowerShell encargados de automatizar el despliegue, preparación y ejecución de los experimentos.
 Principales componentes:
 
 - master_postgres.ps1
 - master_mariadb.ps1
 - run_benchbase_templated.ps1
-- pg_load_tpcc.ps1
+- postgres_load_tpcc.ps1
 
 Estos scripts permiten reproducir completamente los escenarios experimentales.
 
@@ -94,7 +94,7 @@ Incluye:
 
 Aquí se definen las transacciones utilizadas para medir el rendimiento de los gestores de bases de datos.
 
-## automation/
+## databases/
 Contiene scripts auxiliares relacionados con la preparación de datasets y carga de información.
 
 Incluye:
