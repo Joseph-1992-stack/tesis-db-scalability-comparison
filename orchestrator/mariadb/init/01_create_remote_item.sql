@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS remotedb;
+﻿CREATE DATABASE IF NOT EXISTS remotedb;
 
 USE remotedb;
 

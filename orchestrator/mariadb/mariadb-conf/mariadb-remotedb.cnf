@@ -1,4 +1,4 @@
-[mariadb]
+﻿[mariadb]
 bind-address=0.0.0.0
 max_connections=100
 

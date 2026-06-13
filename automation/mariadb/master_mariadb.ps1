@@ -124,7 +124,7 @@ $initDir = Join-Path $ProjectDir "init"
 # Loader MariaDB para carga controlada de datasets experimentales
 $loadScript  = Join-Path $root "automation\dataset-loader\mariadb_load_tpcc.ps1"
 $benchScript = Join-Path $root "automation\run_benchbase_templated.ps1"
-$parseScript = Join-Path $root "automation\parse_bechbase.ps1"
+$parseScript = Join-Path $root "automation\parse_benchbase.ps1"
 
 if ($Recreate) {
   Write-Host "Bajando stack MariaDB (volÃºmenes incluidos)..." -ForegroundColor Yellow

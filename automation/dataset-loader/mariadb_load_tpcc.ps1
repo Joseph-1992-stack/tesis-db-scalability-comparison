@@ -1,4 +1,4 @@
-#requires -Version 5.1
+﻿#requires -Version 5.1
 param(
 [ValidateSet("ds100k","ds500k","ds1m")]
 [string]$Scale = "ds100k"
@@ -11,7 +11,7 @@ $root = "C:\tesis-db"
 $paramsPath = Join-Path $root "databases\postgres\loader\tpcc_params.ps1"
 
 if (!(Test-Path $paramsPath)) {
-throw "No existe archivo de parámetros: $paramsPath"
+throw "No existe archivo de parÃ¡metros: $paramsPath"
 }
 
 $p = & $paramsPath -Scale $Scale
@@ -50,7 +50,7 @@ $Container,
 $Sql | docker @dockerArgs
 
 if ($LASTEXITCODE -ne 0) {
-throw "Falló SQL en $Container/$Database"
+throw "FallÃ³ SQL en $Container/$Database"
 }
 }
 
@@ -99,7 +99,7 @@ $seqIT = New-NumberSource $IT
 Write-Host "== [0] Sanity: verificar tablas base ==" -ForegroundColor Cyan
 ExecMariaSql $coord $db "SHOW TABLES;" $user $pass
 
-Write-Host "== [1] TRUNCATE tablas lógicas Spider ==" -ForegroundColor Cyan
+Write-Host "== [1] TRUNCATE tablas lÃ³gicas Spider ==" -ForegroundColor Cyan
 ExecMariaSql $coord $db @"
 SET FOREIGN_KEY_CHECKS=0;
 TRUNCATE TABLE order_line;

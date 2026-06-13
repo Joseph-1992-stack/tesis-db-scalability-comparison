@@ -1,15 +1,15 @@
-# MariaDB Automation
+﻿# MariaDB Automation
 
-## Descripción
+## DescripciÃ³n
 
 Esta carpeta contiene el script maestro utilizado para automatizar el entorno experimental de MariaDB.
 
-La automatización fue diseñada para reproducir de forma controlada la arquitectura distribuida evaluada en la investigación:
+La automatizaciÃ³n fue diseÃ±ada para reproducir de forma controlada la arquitectura distribuida evaluada en la investigaciÃ³n:
 
 * MariaDB 11.4
 * Spider Storage Engine
 
-utilizando contenedores Docker, scripts SQL de inicialización y scripts PowerShell.
+utilizando contenedores Docker, scripts SQL de inicializaciÃ³n y scripts PowerShell.
 
 ---
 
@@ -17,9 +17,9 @@ utilizando contenedores Docker, scripts SQL de inicialización y scripts PowerSh
 
 ```text
 mariadb
-│
-├── master_mariadb.ps1
-└── README.md
+â”‚
+â”œâ”€â”€ master_mariadb.ps1
+â””â”€â”€ README.md
 ```
 
 ---
@@ -32,14 +32,14 @@ Script encargado de orquestar el ciclo experimental para MariaDB.
 
 Permite ejecutar de forma automatizada:
 
-* Despliegue del clúster MariaDB.
-* Verificación de salud de los contenedores.
-* Instalación y validación de Spider.
-* Configuración de servidores Spider.
-* Creación de tablas distribuidas.
+* Despliegue del clÃºster MariaDB.
+* VerificaciÃ³n de salud de los contenedores.
+* InstalaciÃ³n y validaciÃ³n de Spider.
+* ConfiguraciÃ³n de servidores Spider.
+* CreaciÃ³n de tablas distribuidas.
 * Carga de datasets experimentales.
-* Ejecución de BenchBase.
-* Preparación para procesamiento de resultados.
+* EjecuciÃ³n de BenchBase.
+* PreparaciÃ³n para procesamiento de resultados.
 
 ---
 
@@ -51,7 +51,7 @@ El script trabaja sobre la arquitectura definida en:
 orchestrator/mariadb
 ```
 
-La topología experimental está compuesta por:
+La topologÃ­a experimental estÃ¡ compuesta por:
 
 * MariaDB Coordinator
 * MariaDB Node 1
@@ -62,25 +62,25 @@ El coordinador recibe las conexiones de BenchBase y accede a las tablas distribu
 
 ---
 
-## Flujo de ejecución
+## Flujo de ejecuciÃ³n
 
-1. Recreación opcional del entorno.
+1. RecreaciÃ³n opcional del entorno.
 2. Levantamiento de contenedores Docker.
-3. Validación del estado healthy.
-4. Verificación de versión y motor Spider.
-5. Ejecución de scripts SQL de inicialización.
-6. Validación de tablas distribuidas.
+3. ValidaciÃ³n del estado healthy.
+4. VerificaciÃ³n de versiÃ³n y motor Spider.
+5. EjecuciÃ³n de scripts SQL de inicializaciÃ³n.
+6. ValidaciÃ³n de tablas distribuidas.
 7. Carga de dataset mediante `mariadb_load_tpcc.ps1`.
-8. Ejecución de BenchBase mediante `run_benchbase_templated.ps1`.
+8. EjecuciÃ³n de BenchBase mediante `run_benchbase_templated.ps1`.
 
 ---
 
-## Parámetros principales
+## ParÃ¡metros principales
 
-| Parámetro | Función                                                 |
+| ParÃ¡metro | FunciÃ³n                                                 |
 | --------- | ------------------------------------------------------- |
 | Scale     | Selecciona DS100k, DS500k o DS1M                        |
-| Runs      | Número de repeticiones                                  |
+| Runs      | NÃºmero de repeticiones                                  |
 | Recreate  | Reconstruye completamente el entorno                    |
 | RunLoad   | Ejecuta la carga de datos                               |
 | RunBench  | Ejecuta BenchBase                                       |
@@ -90,4 +90,4 @@ El coordinador recibe las conexiones de BenchBase y accede a las tablas distribu
 
 ## Objetivo
 
-Garantizar que los experimentos realizados sobre MariaDB sean reproducibles, controlados y comparables con la arquitectura PostgreSQL evaluada en la investigación.
+Garantizar que los experimentos realizados sobre MariaDB sean reproducibles, controlados y comparables con la arquitectura PostgreSQL evaluada en la investigaciÃ³n.

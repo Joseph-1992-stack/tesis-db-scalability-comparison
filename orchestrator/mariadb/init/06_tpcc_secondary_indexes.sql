@@ -1,4 +1,4 @@
-USE tesisdb;
+﻿USE tesisdb;
 
 CREATE INDEX IF NOT EXISTS idx_customer_last
 ON customer (c_w_id,c_d_id,c_last);

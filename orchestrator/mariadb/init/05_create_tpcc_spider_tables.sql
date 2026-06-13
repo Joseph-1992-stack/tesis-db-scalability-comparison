@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS tesisdb;
+﻿CREATE DATABASE IF NOT EXISTS tesisdb;
 
 USE tesisdb;
 

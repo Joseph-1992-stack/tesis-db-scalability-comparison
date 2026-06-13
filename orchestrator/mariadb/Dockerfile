@@ -1,4 +1,4 @@
-FROM mariadb:11.4
+﻿FROM mariadb:11.4
 
 USER root
 

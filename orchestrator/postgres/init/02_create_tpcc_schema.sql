@@ -1,4 +1,4 @@
-BEGIN;
+﻿BEGIN;
 
 CREATE SCHEMA IF NOT EXISTS tpcc;
 -- Tabla: warehouse (raiz del particionamiento)

@@ -1,4 +1,4 @@
-BEGIN;
+﻿BEGIN;
 
 CREATE EXTENSION IF NOT EXISTS citus;
 SELECT citus_set_coordinator_host('postgresql-coord', 5432);

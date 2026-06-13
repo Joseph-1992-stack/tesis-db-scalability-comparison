@@ -1,4 +1,4 @@
-BEGIN;
+﻿BEGIN;
 
 CREATE SCHEMA IF NOT EXISTS tpcc;
 
@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS tpcc.item (
   i_price NUMERIC(12,2) NOT NULL
 );
 
--- Datos mínimos de prueba (idempotente)
+-- Datos mÃ­nimos de prueba (idempotente)
 INSERT INTO tpcc.item (i_id, i_name, i_price)
 VALUES
   (1,'Item 1',10.00),

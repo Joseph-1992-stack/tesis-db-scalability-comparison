@@ -15,7 +15,7 @@ param(
   [switch]$Recreate,      # docker compose down -v antes de levantar
   [switch]$RunLoad,       # ejecuta postgres_load_tpcc.ps1
   [switch]$RunBench,      # ejecuta run_benchbase_templated.ps1
-  [switch]$RunParse       # ejecuta parse_bechbase.ps1
+  [switch]$RunParse       # ejecuta parse_benchbase.ps1
 )
 
 Set-StrictMode -Version Latest
@@ -92,7 +92,7 @@ $initDir = Join-Path $ProjectDir "init"
 
 $loadScript  = Join-Path $root "automation\dataset-loader\postgres_load_tpcc.ps1"
 $benchScript = Join-Path $root "automation\run_benchbase_templated.ps1"
-$parseScript = Join-Path $root "automation\parse_bechbase.ps1"
+$parseScript = Join-Path $root "automation\parse_benchbase.ps1"
 
 # ---------------------------
 # 1) Recreate (opcional)
