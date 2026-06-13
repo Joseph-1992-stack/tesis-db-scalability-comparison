@@ -2,122 +2,182 @@
 
 ## Descripción
 
-El siguiente repositorio contiene el prototipo experimental desarrollado para la tesis:
+Este repositorio contiene el prototipo experimental desarrollado para la tesis:
 
-"Comparación de las técnicas de escalabilidad de las bases de datos entre MariaDB y PostgreSQL"
+**"Comparación de las técnicas de escalabilidad de las bases de datos entre MariaDB y PostgreSQL"**
 
-La investigación evalúa dos arquitecturas distribuidas:
+La investigación evalúa experimentalmente dos arquitecturas distribuidas para bases de datos relacionales:
 
-- MariaDB + Spider Storage Engine
-- PostgreSQL + Citus + postgres_fdw
-  mediante escenarios controlados de carga utilizando BenchBase como herramienta de benchmarking
+* MariaDB 11.4 + Spider Storage Engine
+* PostgreSQL 17 + Citus + postgres_fdw
+
+La comparación se realiza mediante escenarios controlados de carga utilizando **BenchBase** como herramienta de benchmarking.
+
+---
 
 ## Objetivo
 
-Comparar el comportamiento de ambas arquitecturas distribuidas mediante escenarios experimental reproducibles, evaluando métricas de rendimiento y escalabilidad bajo diferentes volúmenes de datos y niveles de concurrencia.
+Comparar el comportamiento de ambas arquitecturas distribuidas mediante escenarios experimentales reproducibles, evaluando métricas de rendimiento y escalabilidad bajo diferentes volúmenes de datos y niveles de concurrencia.
+
+---
 
 ## Tecnologías utilizadas
 
-- Docker Compose
-- MariaDB 11.4
-- PostgreSQL 17 + Citus
-- Spider Storage Engine
-- postgres_fdw
-- BenchBase
-- PowerShell
-- Git y GitHub
+* Docker Compose
+* MariaDB 11.4
+* PostgreSQL 17
+* Citus
+* Spider Storage Engine
+* postgres_fdw
+* BenchBase
+* PowerShell
+* Git
+* GitHub
+
+---
 
 ## Métricas evaluadas
 
-- TPS (Transactions Per Second)
-- Latencia promedio
-- Desviación estándar
-- Tiempo total de ejecución
+Las métricas principales analizadas durante los experimentos son:
+
+* TPS (Transactions Per Second)
+* Latencia promedio
+* Desviación estándar de latencia
+* Tiempo total de ejecución
+* Throughput
+* Goodput
+
+---
 
 ## Escenarios experimentales
 
-DS100k:
-- T10
-- T50
-- T100
+Se evaluaron tres tamaños de dataset y tres niveles de concurrencia:
 
-DS500k:
-- T10
-- T50
-- T100
+### DS100k
 
-DS1M:
-- T10
-- T50
-- T100
+* T10
+* T50
+* T100
 
-Donde: 
-DS = tamaño del conjunto de datos
-T  = número de terminales concurrentes de BenchBase
+### DS500k
 
-## Estructura general del repositorio 
-El repositorio se encuentra organizada en cuatro directorios principales
+* T10
+* T50
+* T100
 
-## automation/
+### DS1M
+
+* T10
+* T50
+* T100
+
+Donde:
+
+* **DS** = tamaño del conjunto de datos.
+* **T** = número de terminales concurrentes de BenchBase.
+
+---
+
+## Arquitecturas evaluadas
+
+### PostgreSQL
+
+Arquitectura distribuida basada en:
+
+* PostgreSQL 17
+* Citus (sharding distribuido)
+* postgres_fdw (acceso federado)
+
+### MariaDB
+
+Arquitectura distribuida basada en:
+
+* MariaDB 11.4
+* Spider Storage Engine (federación y distribución de tablas)
+
+---
+
+## Estructura general del repositorio
+
+El repositorio se encuentra organizado en cuatro directorios principales.
+
+### automation/
+
 Contiene los scripts PowerShell encargados de automatizar el despliegue, preparación y ejecución de los experimentos.
+
 Principales componentes:
 
-- master_postgres.ps1
-- master_mariadb.ps1
-- run_benchbase_templated.ps1
-- postgres_load_tpcc.ps1
+* master_postgres.ps1
+* master_mariadb.ps1
+* run_benchbase_templated.ps1
+* dataset-loader/postgres_load_tpcc.ps1
+* dataset-loader/mariadb_load_tpcc.ps1
 
 Estos scripts permiten reproducir completamente los escenarios experimentales.
 
-## orchestrator/
+---
+
+### orchestrator/
+
 Contiene toda la infraestructura necesaria para desplegar los entornos distribuidos mediante Docker Compose.
 
 Incluye:
 
-- docker-compose.yml
-- archivos de configuración de PostgreSQL
-- archivos de configuración de MariaDB
-- scripts SQL de inicialización
-- definición de nodos coordinadores y trabajadores
+* docker-compose.yml
+* archivos de configuración de PostgreSQL
+* archivos de configuración de MariaDB
+* scripts SQL de inicialización
+* definición de nodos coordinadores y trabajadores
 
 Su propósito es construir automáticamente los clústeres utilizados durante los experimentos.
 
-## benchbase-config/
+---
+
+### benchbase-config/
+
 Contiene la configuración de las cargas de trabajo ejecutadas por BenchBase.
 
 Incluye:
 
-- queries.xml
-- escenarios experimentales
-- archivos config.xml
-- parámetros de ejecución
+* queries.xml
+* escenarios experimentales
+* archivos config.xml
+* parámetros de ejecución
 
 Aquí se definen las transacciones utilizadas para medir el rendimiento de los gestores de bases de datos.
 
-## databases/
-Contiene scripts auxiliares relacionados con la preparación de datasets y carga de información.
+---
+
+### databases/
+
+Contiene scripts auxiliares relacionados con la parametrización de datasets y la carga de información experimental.
 
 Incluye:
 
-- generación de datasets
-- parametrización de escalas experimentales
-- scripts de carga para PostgreSQL
+* parametrización de escalas experimentales
+* definición de tamaños de dataset
+* scripts de soporte para generación de datos
 
-Estos archivos permiten construir los datasets utilizados durante las pruebas.
+Estos archivos permiten construir los conjuntos de datos utilizados durante las pruebas.
 
-## Reproducibilidad 
+---
+
+## Reproducibilidad
+
 Todos los experimentos fueron diseñados para ser reproducibles mediante Docker Compose y scripts automatizados.
 
-La ejecución completa de un escenario experimental requiere:
+La ejecución completa de un escenario experimental sigue la siguiente secuencia:
 
-Despliegue del clúster correspondiente.
-Carga del dataset.
-Ejecución de BenchBase.
-Recolección de métricas.
-Análisis de resultados.
+1. Despliegue del clúster distribuido.
+2. Configuración de la arquitectura correspondiente.
+3. Generación y carga del dataset.
+4. Ejecución del workload mediante BenchBase.
+5. Recolección de métricas.
+6. Procesamiento y análisis de resultados.
+
+---
 
 ## Autor
 
-José Luis Quizhpe Paqui
-Universidad Técnica Particular de Loja
-
+**José Luis Quizhpe Paqui**
+Universidad Técnica Particular de Loja (UTPL)

@@ -116,14 +116,14 @@ Write-Host "Esperando HEALTHY: $($containers -join ', ')" -ForegroundColor Green
 Wait-Healthy -Containers $containers -TimeoutSec 240
 
 # ---------------------------
-# 4) BitÃ¡cora: versiones
+# 4) Bitacora: versiones
 # ---------------------------
 Write-Host "`n==> Versiones detectadas (coordinator)" -ForegroundColor Green
 Exec-PsqlOn -Container "postgresql-coord" -Db "tesisdb" -User "postgres" -Sql "SELECT version();"
 Exec-PsqlOn -Container "postgresql-coord" -Db "tesisdb" -User "postgres" -Sql "SELECT extname, extversion FROM pg_extension WHERE extname IN ('citus','postgres_fdw') ORDER BY extname;"
 
 # ---------------------------
-# 5) SQL homogÃ©neo: 01 en remotedb / 02..06 en coordinator
+# 5) SQL homogeneo: 01 en remotedb / 02..06 en coordinator
 # ---------------------------
 
 # 01 en remotedb
@@ -148,7 +148,7 @@ if (Test-Path $idx) {
 }
 
 # ---------------------------
-# 6) Validaciones rÃ¡pidas
+# 6) Validaciones rapidas
 # ---------------------------
 Write-Host "`n==> Validaciones (rÃ¡pidas)" -ForegroundColor Green
 Exec-PsqlOn -Container "postgresql-coord" -Db "tesisdb" -User "postgres" -Sql "SELECT * FROM citus_get_active_worker_nodes();"
@@ -165,7 +165,7 @@ if ($RunLoad) {
 }
 
 # ---------------------------
-# 8) (Opcional) BenchBase por grupo de escenarios segÃºn Scale
+# 8) (Opcional) BenchBase por grupo de escenarios segun Scale
 # ---------------------------
 if ($RunBench) {
   if (!(Test-Path $benchScript)) { throw "No existe bench script: $benchScript" }

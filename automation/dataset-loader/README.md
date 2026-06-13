@@ -1,8 +1,8 @@
 ﻿# Dataset Loader
 
-## DescripciÃ³n
+## Descripción
 
-Esta carpeta contiene los scripts encargados de generar y cargar los conjuntos de datos utilizados durante los experimentos de benchmarking desarrollados en la investigaciÃ³n.
+Esta carpeta contiene los scripts encargados de generar y cargar los conjuntos de datos utilizados durante los experimentos de benchmarking desarrollados en la investigación.
 
 Los datasets son utilizados para construir los escenarios experimentales definidos en la tesis:
 
@@ -10,39 +10,58 @@ Los datasets son utilizados para construir los escenarios experimentales definid
 * DS500k
 * DS1M
 
-Cada escenario representa un volumen diferente de datos y permite evaluar el comportamiento de las arquitecturas distribuidas bajo distintos niveles de carga.
+Cada escenario representa un volumen diferente de datos y permite evaluar el comportamiento de las arquitecturas distribuidas bajo distintos niveles de carga y concurrencia.
 
 ---
 
 ## Estructura
 
-```text 
+```text
 dataset-loader
-â”‚
-â””â”€â”€ postgres_load_tpcc.ps1
+│
+├── postgres_load_tpcc.ps1
+├── mariadb_load_tpcc.ps1
+│
+└── README.md
 ```
 
 ---
 
-## Script disponible
+## Scripts disponibles
 
 ### postgres_load_tpcc.ps1
 
-Script encargado de generar y cargar los datos experimentales para PostgreSQL.
+Script encargado de generar y cargar los datos experimentales para la arquitectura basada en PostgreSQL, Citus y postgres_fdw.
 
 Sus principales funciones son:
 
 * Limpiar datos previamente cargados.
-* Generar registros sintÃ©ticos de forma reproducible.
+* Generar registros sintéticos de forma reproducible.
 * Poblar las tablas del esquema experimental.
 * Construir los datasets DS100k, DS500k y DS1M.
 * Verificar la cantidad de registros cargados.
 
 ---
 
+### mariadb_load_tpcc.ps1
+
+Script encargado de generar y cargar los datos experimentales para la arquitectura basada en MariaDB y Spider Storage Engine.
+
+Sus principales funciones son:
+
+* Limpiar datos previamente cargados.
+* Generar registros sintéticos equivalentes a los utilizados en PostgreSQL.
+* Poblar las tablas distribuidas gestionadas por Spider.
+* Construir los datasets DS100k, DS500k y DS1M.
+* Verificar la cantidad de registros cargados.
+
+Este script fue desarrollado para mantener la equivalencia metodológica entre ambas arquitecturas experimentales.
+
+---
+
 ## Tablas involucradas
 
-El script genera informaciÃ³n para las siguientes tablas:
+Los scripts generan información para las siguientes tablas:
 
 * warehouse
 * district
@@ -50,11 +69,11 @@ El script genera informaciÃ³n para las siguientes tablas:
 * stock
 * item
 
-Estas tablas forman parte de una versiÃ³n reducida del esquema TPC-C utilizada en la investigaciÃ³n.
+Estas tablas forman parte de una versión reducida del esquema TPC-C utilizada en la investigación.
 
 ---
 
-## RelaciÃ³n con el workload experimental
+## Relación con el workload experimental
 
 Aunque el benchmark utiliza principalmente las tablas:
 
@@ -67,7 +86,7 @@ las tablas:
 * warehouse
 * district
 
-se mantienen dentro del esquema para conservar la coherencia estructural del modelo de datos derivado de TPC-C.
+se mantienen dentro del esquema para preservar la coherencia estructural del modelo de datos derivado de TPC-C.
 
 Las transacciones ejecutadas por BenchBase son:
 
@@ -82,21 +101,28 @@ simulando acceso distribuido y acceso federado.
 
 ### UpdateStock
 
-Realiza operaciones de actualizaciÃ³n sobre:
+Realiza operaciones de actualización sobre:
 
 * stock
 
 simulando actividad transaccional concurrente.
 
+La distribución de la carga de trabajo utilizada durante los experimentos es:
+
+| Transacción  | Participación |
+| ------------ | ------------- |
+| ReadJoinItem | 50 %          |
+| UpdateStock  | 50 %          |
+
 ---
 
 ## Escalas experimentales
 
-El script permite generar tres tamaÃ±os de dataset:
+Los scripts permiten generar tres tamaños de dataset:
 
-| Escala | DescripciÃ³n        |
+| Escala | Descripción        |
 | ------ | ------------------ |
-| DS100k | Dataset pequeÃ±o    |
+| DS100k | Dataset pequeño    |
 | DS500k | Dataset intermedio |
 | DS1M   | Dataset grande     |
 
@@ -104,20 +130,18 @@ Estas escalas permiten analizar el comportamiento de las arquitecturas distribui
 
 ---
 
-## ConsideraciÃ³n sobre MariaDB
+## Parametrización de escalas
 
-Actualmente la generaciÃ³n explÃ­cita de datasets se encuentra implementada mediante el script `postgres_load_tpcc.ps1`.
-
-Para MariaDB, la preparaciÃ³n de la arquitectura distribuida y la creaciÃ³n de las estructuras necesarias se realizan mediante los scripts SQL ubicados en:
+La definición de los tamaños de dataset se encuentra centralizada en:
 
 ```text
-orchestrator/mariadb/init
+databases/postgres/loader/tpcc_params.ps1
 ```
 
-Por esta razÃ³n no existe actualmente un cargador independiente equivalente para MariaDB dentro de esta carpeta.
+Este archivo establece la cantidad de warehouses, distritos, clientes e ítems utilizados para construir cada escala experimental.
 
 ---
 
 ## Objetivo
 
-Garantizar que todos los escenarios experimentales inicien desde conjuntos de datos controlados, reproducibles y consistentes, permitiendo realizar comparaciones vÃ¡lidas entre PostgreSQL y MariaDB.
+Garantizar que todos los escenarios experimentales inicien desde conjuntos de datos controlados, reproducibles y consistentes, permitiendo realizar comparaciones válidas entre PostgreSQL y MariaDB bajo condiciones equivalentes.
