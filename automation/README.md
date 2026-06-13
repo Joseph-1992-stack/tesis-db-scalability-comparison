@@ -24,13 +24,15 @@ automation
 │   └── README.md
 │
 ├── mariadb
-│   └── master_mariadb.ps1
+│   ├── master_mariadb.ps1
+│   └── README.md
 │
 ├── postgres
 │   ├── master_postgres.ps1
 │   └── README.md
 │
 ├── run_benchbase_templated.ps1
+├── parse_benchbase.ps1
 │
 └── README.md
 ```
@@ -126,6 +128,22 @@ Este script constituye el núcleo del proceso de benchmarking de la investigaci�
 
 ---
 
+### parse_benchbase.ps1
+
+Script encargado de procesar y consolidar los resultados generados por BenchBase.
+
+Funciones principales:
+
+* Leer los archivos de salida generados en cada ejecución.
+* Extraer métricas de rendimiento relevantes.
+* Consolidar resultados por corrida, escenario y escala.
+* Generar archivos CSV para análisis estadístico posterior.
+* Facilitar la construcción de tablas, gráficas y comparaciones utilizadas en la tesis.
+
+Este script constituye la etapa de procesamiento de resultados dentro del flujo experimental.
+
+---
+
 ## Flujo experimental general
 
 La secuencia típica de ejecución es:
@@ -134,8 +152,8 @@ La secuencia típica de ejecución es:
 2. Configuración de la arquitectura correspondiente.
 3. Generación y carga del dataset experimental.
 4. Ejecución del workload mediante BenchBase.
-5. Recolección de resultados.
-6. Procesamiento y análisis de métricas.
+5. Procesamiento de resultados mediante `parse_benchbase.ps1`.
+6. Análisis de métricas y elaboración de resultados.
 
 Todo el proceso puede ejecutarse de forma automatizada mediante los scripts incluidos en esta carpeta.
 
