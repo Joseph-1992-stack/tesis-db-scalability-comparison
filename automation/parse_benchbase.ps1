@@ -298,7 +298,7 @@ foreach ($sd in $scenarioDirs) {
 }
 
 # ------------------------------------------------------------
-# Export 1: corridas vÃ¡lidas
+# Export 1: corridas válidas
 # ------------------------------------------------------------
 $outDir = Join-Path $BaseDir $Db
 New-Item -ItemType Directory -Force -Path $outDir | Out-Null
@@ -316,7 +316,7 @@ Write-Host "OK: $outRuns"
 Write-Host "OK: $outErr"
 
 # ------------------------------------------------------------
-# Export 2: agregaciÃ³n por escenario
+# Export 2: agregación por escenario
 # ------------------------------------------------------------
 $scenarioSummary = @()
 
@@ -368,7 +368,7 @@ $scenarioSummary | Sort-Object scenario_id | Export-Csv -NoTypeInformation -Enco
 Write-Host "OK: $outScenario"
 
 # ------------------------------------------------------------
-# Export 3: agregaciÃ³n por escala
+# Export 3: agregación por escala
 # ------------------------------------------------------------
 $scaleSummary = @()
 

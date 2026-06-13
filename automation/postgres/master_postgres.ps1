@@ -144,7 +144,7 @@ $idx = Join-Path $initDir "06_tpcc_secondary_indexes.sql"
 if (Test-Path $idx) {
   Exec-PsqlFileOn -Container "postgresql-coord" -Db "tesisdb" -User "postgres" -SqlPath $idx
 } else {
-  Write-Host "Aviso: no existe 06_tpcc_secondary_indexes.sql (omitiendo Ã­ndices secundarios)." -ForegroundColor Yellow
+  Write-Host "Aviso: no existe 06_tpcc_secondary_indexes.sql (omitiendo í­ndices secundarios)." -ForegroundColor Yellow
 }
 
 # ---------------------------
@@ -191,4 +191,4 @@ if ($RunParse) {
   & $parseScript -Db "postgres" -Workload "templated"
 }
 
-Write-Host "`nâœ… MASTER PostgreSQL finalizado." -ForegroundColor Green
+Write-Host "`n✅ MASTER PostgreSQL finalizado." -ForegroundColor Green

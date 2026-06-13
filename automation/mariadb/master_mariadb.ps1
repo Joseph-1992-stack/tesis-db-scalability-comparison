@@ -88,7 +88,7 @@ function Exec-MariaDbFileOn {
   Get-Content -Path $SqlPath -Raw | docker @dockerArgs
 
   if ($LASTEXITCODE -ne 0) {
-    throw "FallÃ³ la ejecuciÃ³n SQL en $Container :: $SqlPath"
+    throw "FallÃ³ la ejecución SQL en $Container :: $SqlPath"
   }
 }
 
@@ -114,7 +114,7 @@ function Exec-MariaDbOn {
   docker @dockerArgs
 
   if ($LASTEXITCODE -ne 0) {
-    throw "FallÃ³ la consulta en $Container :: $Sql"
+    throw "Falla la consulta en $Container :: $Sql"
   }
 }
 
@@ -127,7 +127,7 @@ $benchScript = Join-Path $root "automation\run_benchbase_templated.ps1"
 $parseScript = Join-Path $root "automation\parse_benchbase.ps1"
 
 if ($Recreate) {
-  Write-Host "Bajando stack MariaDB (volÃºmenes incluidos)..." -ForegroundColor Yellow
+  Write-Host "Bajando stack MariaDB (volúmenes incluidos)..." -ForegroundColor Yellow
   Invoke-Compose @("down","-v")
 }
 
@@ -159,7 +159,7 @@ if (Test-Path $idx) {
   Write-Host "Aviso: no existe 06_tpcc_secondary_indexes.sql (omitiendo Ã­ndices secundarios)." -ForegroundColor Yellow
 }
 
-Write-Host "`n==> Validaciones rÃ¡pidas MariaDB + Spider" -ForegroundColor Green
+Write-Host "`n==> Validaciones rápidas MariaDB + Spider" -ForegroundColor Green
 
 Exec-MariaDbOn -Container "mariadb-coord" -Sql "USE tesisdb; SHOW TABLES;"
 Exec-MariaDbOn -Container "mariadb-coord" -Sql "USE tesisdb; SELECT COUNT(*) AS item_rows_spider FROM item;"
@@ -205,4 +205,4 @@ if ($RunParse) {
     -ScenarioConfigRoot "C:\tesis-db\benchbase-config\mariadb\templated\scenarios"
 }
 
-Write-Host "`nâœ… MASTER MariaDB finalizado." -ForegroundColor Green
+Write-Host "`n✅ MASTER Mariadb finalizado." -ForegroundColor Green

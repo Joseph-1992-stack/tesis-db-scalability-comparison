@@ -32,7 +32,7 @@ Write-Host "== [0] Sanity: verificar tablas base =="
 ExecPsql $coord "tesisdb" "SELECT table_schema, table_name FROM information_schema.tables WHERE table_schema='tpcc' ORDER BY 1,2;" | Out-Host
 
 # 1) TRUNCATE (tesisdb)
-Write-Host "== [1] TRUNCATE tesisdb.tpcc (tablas que cargamos) =="
+Write-Host "== [1] TRUNCATE tesisdb.tpcc (tablas que cargo) =="
 ExecPsql $coord "tesisdb" @"
 TRUNCATE TABLE
   tpcc.stock,

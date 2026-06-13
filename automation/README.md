@@ -149,11 +149,12 @@ Este script constituye la etapa de procesamiento de resultados dentro del flujo 
 La secuencia típica de ejecución es:
 
 1. Despliegue del clúster distribuido.
-2. Configuración de la arquitectura correspondiente.
-3. Generación y carga del dataset experimental.
+2. Inicialización de la arquitectura experimental.
+3. Generación y carga del dataset.
 4. Ejecución del workload mediante BenchBase.
 5. Procesamiento de resultados mediante `parse_benchbase.ps1`.
-6. Análisis de métricas y elaboración de resultados.
+6. Exportación de métricas por corrida, escenario y escala.
+7. Análisis estadístico y elaboración de resultados.
 
 Todo el proceso puede ejecutarse de forma automatizada mediante los scripts incluidos en esta carpeta.
 
