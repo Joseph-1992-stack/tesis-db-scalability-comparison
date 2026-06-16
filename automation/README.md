@@ -85,7 +85,7 @@ Automatiza completamente el ciclo experimental sobre PostgreSQL:
 * Distribución de tablas.
 * Carga de datasets.
 * Ejecución de BenchBase.
-* Procesamiento de resultados.
+* Procesamiento y consolidación automática de resultados parse_benchbase.ps1.
 
 Constituye el punto de entrada principal para los experimentos realizados sobre PostgreSQL.
 
@@ -106,7 +106,7 @@ Automatiza completamente el ciclo experimental sobre MariaDB:
 * Creación de tablas distribuidas.
 * Carga de datasets.
 * Ejecución de BenchBase.
-* Procesamiento de resultados.
+* Procesamiento y consolidación automática de resultados parse_benchbase.ps1.
 
 Constituye el punto de entrada principal para los experimentos realizados sobre MariaDB.
 
@@ -124,7 +124,7 @@ Características principales:
 * Almacena automáticamente resultados y registros de ejecución.
 * Organiza la salida de BenchBase de forma estructurada para su posterior análisis.
 
-Este script constituye el núcleo del proceso de benchmarking de la investigación.
+Este script constituye el núcleo del proceso de benchmarking de la investigación. Los resultados generados por este script son posteriormente procesados mediante parse_benchbase.ps1.
 
 ---
 
@@ -139,6 +139,9 @@ Funciones principales:
 * Consolidar resultados por corrida, escenario y escala.
 * Generar archivos CSV para análisis estadístico posterior.
 * Facilitar la construcción de tablas, gráficas y comparaciones utilizadas en la tesis.
+* Detectar corridas inválidas o incompletas.
+* Calcular métricas agregadas (promedios y desviaciones estándar).
+* Generar datasets listos para análisis estadístico y construcción de gráficas.
 
 Este script constituye la etapa de procesamiento de resultados dentro del flujo experimental.
 

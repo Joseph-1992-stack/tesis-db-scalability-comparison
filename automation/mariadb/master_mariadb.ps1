@@ -88,7 +88,7 @@ function Exec-MariaDbFileOn {
   Get-Content -Path $SqlPath -Raw | docker @dockerArgs
 
   if ($LASTEXITCODE -ne 0) {
-    throw "FallÃ³ la ejecución SQL en $Container :: $SqlPath"
+    throw "Falló la ejecución SQL en $Container :: $SqlPath"
   }
 }
 
@@ -189,7 +189,11 @@ if ($RunBench) {
   Write-Host "`n==> EJECUTANDO BenchBase MariaDB TEMPLATED (Runs=$Runs | Scale=$Scale)" -ForegroundColor Green
   Write-Host "Escenarios: $($scenarioGroup -join ', ')" -ForegroundColor Cyan
 
-  & $benchScript -Runs $Runs -DockerNet $DockerNet -OnlyScenarios $scenarioGroup
+  & $benchScript `
+  -Db mariadb `
+  -Runs $Runs `
+  -DockerNet $DockerNet `
+  -OnlyScenarios $scenarioGroup
 }
 
 if ($RunParse) {

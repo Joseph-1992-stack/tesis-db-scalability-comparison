@@ -50,7 +50,7 @@ $Container,
 $Sql | docker @dockerArgs
 
 if ($LASTEXITCODE -ne 0) {
-throw "Falla SQL en $Container/$Database"
+throw "Falló SQL en $Container/$Database"
 }
 }
 

@@ -38,7 +38,7 @@ Permite ejecutar de forma automatizada:
 * Inicialización del esquema experimental.
 * Carga de datasets.
 * Ejecución de BenchBase.
-* Procesamiento de resultados.
+* Procesamiento y consolidación automática de resultados mediante parse_benchbase.ps1.
 
 ---
 
@@ -155,7 +155,7 @@ E3_DS100k_T100
 
 ---
 
-### 9. Procesamiento de resultados (opcional)
+### 9. Procesamiento y consolidación automática de resultados mediante parse_benchbase.ps1.)
 
 Permite consolidar los resultados obtenidos para su posterior análisis estadí­stico.
 

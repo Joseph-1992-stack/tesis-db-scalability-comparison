@@ -4,6 +4,10 @@
 
 Esta carpeta contiene los scripts encargados de generar y cargar los conjuntos de datos utilizados durante los experimentos de benchmarking desarrollados en la investigación.
 
+Ambos scripts utilizan la misma parametrización centralizada definida en:
+
+databases/postgres/loader/tpcc_params.ps1, con el fin de garantizar equivalencia metodológica entre PostgreSQL y MariaDB.
+
 Los datasets son utilizados para construir los escenarios experimentales definidos en la tesis:
 
 * DS100k
@@ -69,7 +73,7 @@ Los scripts generan información para las siguientes tablas:
 * stock
 * item
 
-Estas tablas forman parte de una versión reducida del esquema TPC-C utilizada en la investigación.
+La reducción del esquema TPC-C fue realizada para concentrar el análisis en operaciones representativas de lectura distribuida y actualización transaccional, manteniendo la comparabilidad entre ambas arquitecturas evaluadas.
 
 ---
 

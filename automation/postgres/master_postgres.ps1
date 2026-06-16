@@ -98,7 +98,7 @@ $parseScript = Join-Path $root "automation\parse_benchbase.ps1"
 # 1) Recreate (opcional)
 # ---------------------------
 if ($Recreate) {
-  Write-Host "Bajando stack (volÃºmenes incluidos)..." -ForegroundColor Yellow
+  Write-Host "Bajando stack (volúmenes incluidos)..." -ForegroundColor Yellow
   Invoke-Compose @("down","-v")
 }
 
@@ -150,7 +150,7 @@ if (Test-Path $idx) {
 # ---------------------------
 # 6) Validaciones rapidas
 # ---------------------------
-Write-Host "`n==> Validaciones (rÃ¡pidas)" -ForegroundColor Green
+Write-Host "`n==> Validaciones (rápidas)" -ForegroundColor Green
 Exec-PsqlOn -Container "postgresql-coord" -Db "tesisdb" -User "postgres" -Sql "SELECT * FROM citus_get_active_worker_nodes();"
 Exec-PsqlOn -Container "postgresql-coord" -Db "tesisdb" -User "postgres" -Sql "SELECT COUNT(*) AS shards FROM pg_dist_shard WHERE logicalrelid::text LIKE 'tpcc.%';"
 Exec-PsqlOn -Container "postgresql-coord" -Db "tesisdb" -User "postgres" -Sql "SELECT COUNT(*) AS item_rows_fdw FROM tpcc.item;"
@@ -179,7 +179,11 @@ if ($RunBench) {
   Write-Host "`n==> EJECUTANDO BenchBase TEMPLATED (Runs=$Runs | Scale=$Scale)" -ForegroundColor Green
   Write-Host "Escenarios: $($scenarioGroup -join ', ')" -ForegroundColor Cyan
 
-  & $benchScript -Runs $Runs -DockerNet $DockerNet -OnlyScenarios $scenarioGroup
+  & $benchScript `
+  -Db postgres `
+  -Runs $Runs `
+  -DockerNet $DockerNet `
+  -OnlyScenarios $scenarioGroup
 }
 
 # ---------------------------

@@ -39,8 +39,8 @@ Permite ejecutar de forma automatizada:
 * Creación de tablas distribuidas.
 * Carga de datasets experimentales.
 * Ejecución de BenchBase.
-* Preparación para procesamiento de resultados.
-
+* Procesamiento y consolidación automática de resultados mediante parse_benchbase.ps1.
+  
 ---
 
 ## Arquitectura desplegada
@@ -62,7 +62,7 @@ El coordinador recibe las conexiones de BenchBase y accede a las tablas distribu
 
 ---
 
-## Flujo de ejecucion
+## Flujo de ejecución
 
 1. Recreación opcional del entorno.
 2. Levantamiento de contenedores Docker.

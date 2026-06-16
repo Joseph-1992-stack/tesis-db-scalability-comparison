@@ -53,23 +53,11 @@ Las métricas principales analizadas durante los experimentos son:
 
 Se evaluaron tres tamaños de dataset y tres niveles de concurrencia:
 
-### DS100k
-
-* T10
-* T50
-* T100
-
-### DS500k
-
-* T10
-* T50
-* T100
-
-### DS1M
-
-* T10
-* T50
-* T100
+| Dataset | Terminales |
+|----------|------------|
+| DS100k | T10, T50, T100 |
+| DS500k | T10, T50, T100 |
+| DS1M | T10, T50, T100 |
 
 Donde:
 
@@ -110,6 +98,7 @@ Principales componentes:
 * master_postgres.ps1
 * master_mariadb.ps1
 * run_benchbase_templated.ps1
+* parse_benchbase.ps1
 * dataset-loader/postgres_load_tpcc.ps1
 * dataset-loader/mariadb_load_tpcc.ps1
 
@@ -176,6 +165,21 @@ La ejecución completa de un escenario experimental sigue la siguiente secuencia
 6. Procesamiento y análisis de resultados.
 
 ---
+
+## Dependencias y entorno de validación
+
+Los experimentos fueron desarrollados y validados utilizando el siguiente entorno tecnológico:
+
+* Windows 10
+* Docker Desktop
+* Docker Engine (Linux Containers)
+* PowerShell 5.1
+* Eclipse Temurin JDK 23
+* BenchBase
+* PostgreSQL 17 + Citus
+* MariaDB 11.4 + Spider Storage Engine
+
+La utilización de estas versiones permite reproducir las arquitecturas experimentales y los resultados obtenidos durante la investigación.
 
 ## Autor
 
