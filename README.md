@@ -162,7 +162,7 @@ La ejecución completa de un escenario experimental sigue la siguiente secuencia
 3. Generación y carga del dataset.
 4. Ejecución del workload mediante BenchBase.
 5. Recolección de métricas.
-6. Procesamiento y análisis de resultados.
+6. Procesamiento y consolidación de resultados.
 
 ---
 

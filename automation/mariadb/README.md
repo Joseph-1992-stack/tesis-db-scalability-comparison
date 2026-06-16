@@ -39,7 +39,7 @@ Permite ejecutar de forma automatizada:
 * Creación de tablas distribuidas.
 * Carga de datasets experimentales.
 * Ejecución de BenchBase.
-* Procesamiento y consolidación automática de resultados mediante parse_benchbase.ps1.
+* Procesamiento y consolidación automática de resultados mediante `parse_benchbase.ps1`.
   
 ---
 
@@ -77,7 +77,7 @@ El coordinador recibe las conexiones de BenchBase y accede a las tablas distribu
 
 ## Parámetros principales
 
-| Parametro | Función                                                 |
+| Parámetro | Función                                                 |
 | --------- | ------------------------------------------------------- |
 | Scale     | Selecciona DS100k, DS500k o DS1M                        |
 | Runs      | Número de repeticiones                                  |

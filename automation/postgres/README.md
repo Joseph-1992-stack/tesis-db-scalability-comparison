@@ -38,7 +38,7 @@ Permite ejecutar de forma automatizada:
 * Inicialización del esquema experimental.
 * Carga de datasets.
 * Ejecución de BenchBase.
-* Procesamiento y consolidación automática de resultados mediante parse_benchbase.ps1.
+* Procesamiento y consolidación automática de resultados mediante `parse_benchbase.ps1`.
 
 ---
 

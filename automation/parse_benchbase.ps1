@@ -73,7 +73,7 @@ function Get-StdDev {
     $sumSq += [math]::Pow(($x - $mean), 2)
   }
 
-  # desviaciÃ³n estÃ¡ndar muestral
+  # desviación estándar muestral
   return [math]::Round([math]::Sqrt($sumSq / ($Values.Count - 1)), 6)
 }
 
@@ -210,7 +210,7 @@ function Extract-FromSummary {
     )
   } else { $null }
 
-  # Tiempo total real de ejecuciÃ³n (si BenchBase lo reporta)
+  # Tiempo total real de ejecución (si BenchBase lo reporta)
   $elapsedNs = Get-AnyProp $j @("Elapsed Time (nanoseconds)")
   $elapsedMs = Get-AnyProp $j @("Elapsed Time (milliseconds)")
   $elapsedS  = Get-AnyProp $j @("Elapsed Time (seconds)")

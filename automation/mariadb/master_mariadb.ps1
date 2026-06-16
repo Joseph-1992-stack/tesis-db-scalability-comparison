@@ -156,7 +156,7 @@ $idx = Join-Path $initDir "06_tpcc_secondary_indexes.sql"
 if (Test-Path $idx) {
   Exec-MariaDbFileOn -Container "mariadb-coord" -SqlPath $idx
 } else {
-  Write-Host "Aviso: no existe 06_tpcc_secondary_indexes.sql (omitiendo Ã­ndices secundarios)." -ForegroundColor Yellow
+  Write-Host "Aviso: no existe 06_tpcc_secondary_indexes.sql (omitiendo í­ndices secundarios)." -ForegroundColor Yellow
 }
 
 Write-Host "`n==> Validaciones rápidas MariaDB + Spider" -ForegroundColor Green

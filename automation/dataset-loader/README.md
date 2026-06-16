@@ -73,6 +73,7 @@ Los scripts generan información para las siguientes tablas:
 * stock
 * item
 
+
 La reducción del esquema TPC-C fue realizada para concentrar el análisis en operaciones representativas de lectura distribuida y actualización transaccional, manteniendo la comparabilidad entre ambas arquitecturas evaluadas.
 
 ---

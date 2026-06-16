@@ -85,7 +85,7 @@ Automatiza completamente el ciclo experimental sobre PostgreSQL:
 * Distribución de tablas.
 * Carga de datasets.
 * Ejecución de BenchBase.
-* Procesamiento y consolidación automática de resultados parse_benchbase.ps1.
+* Procesamiento y consolidación automática de resultados `parse_benchbase.ps1`.
 
 Constituye el punto de entrada principal para los experimentos realizados sobre PostgreSQL.
 
@@ -155,7 +155,7 @@ La secuencia típica de ejecución es:
 2. Inicialización de la arquitectura experimental.
 3. Generación y carga del dataset.
 4. Ejecución del workload mediante BenchBase.
-5. Procesamiento de resultados mediante `parse_benchbase.ps1`.
+5. Procesamiento y consolidación de resultados mediante `parse_benchbase.ps1`.
 6. Exportación de métricas por corrida, escenario y escala.
 7. Análisis estadístico y elaboración de resultados.
 
