@@ -1,0 +1,29 @@
+ya corregí o revise los siguientes problemas: 
+1. master_mariadb.ps1 apunta a un runner inexistente 
+En este caso se supone que ambos gestores se apoyan en un mismo 
+script denominado run_benchbase_templated.ps1. ya lo corregi con 
+(Get-Content C:\tesis-db-github\automation\mariadb\master_mariadb.ps1) `
+  -replace 'automation\\run_benchbase_mariadb_templated\.ps1', 'automation\run_benchbase_templated.ps1' |
+Set-Content -Encoding UTF8 C:\tesis-db-github\automation\mariadb\master_mariadb.ps1
+
+2. Comentario desactualizado en MariaDB
+Le aplique: (Get-Content C:\tesis-db-github\automation\mariadb\master_mariadb.ps1) `
+  -replace '# Futuro loader MariaDB \(actualmente no implementado\)', '# Loader MariaDB para carga controlada de datasets experimentales' |
+Set-Content -Encoding UTF8 C:\tesis-db-github\automation\mariadb\master_mariadb.ps1
+
+3. parse_bechbase.ps1 no existe
+Este archivo si existe solo que no lo subimos al repositorio ¿deberiamos subirlo?
+¿En que carpeta se ubicaría? 
+
+4. Falta README en automation/mariadb
+Ya lo acabo de agregar
+
+
+
+Copy-Item `
+  "C:\tesis-db\automation\automatizaciones anteriores\parse_benchbase.ps1" `
+  "C:\tesis-db-github\automation\parse_benchbase.ps1" `
+  -Force
+
+
+Puedo trabajar y es util implementar el 4 mas 1 vistas en mi tesis?
