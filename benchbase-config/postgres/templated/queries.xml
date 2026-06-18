@@ -3,11 +3,10 @@
 
   <!--
     ReadJoinItem:
-    JOIN controlado entre tabla distribuida (customer) y tabla federada (item vÃ­a FDW).
+    JOIN controlado entre tabla distribuida (customer) y tabla federada (item vía FDW).
 
-    La selecciÃ³n del item remoto se restringe a 10 Ã­tems por warehouse,
-    evitando un hotspot global sobre los mismos 10 registros para todos los almacenes.
-    AsÃ­ se mantiene el JOIN acotado y reproducible, pero con mejor distribuciÃ³n del acceso.
+    La selección del item remoto se restringe a 10 íems por warehouse, evitando un hotspot global sobre los mismos 10 registros para todos los almacenes.
+    Así­ se mantiene el JOIN acotado y reproducible, pero con mejor distribución del acceso.
   -->
   <template name="ReadJoinItem">
     <query><![CDATA[
@@ -24,12 +23,12 @@
     </types>
     <values>
       <value dist="uniform" min="1" max="10"/>
-    </values>
+nbvcxz    </values>
   </template>
 
   <!--
     UpdateStock:
-    ActualizaciÃ³n controlada sobre stock distribuido.
+    Actualización controlada sobre stock distribuido.
   -->
   <template name="UpdateStock">
     <query><![CDATA[
