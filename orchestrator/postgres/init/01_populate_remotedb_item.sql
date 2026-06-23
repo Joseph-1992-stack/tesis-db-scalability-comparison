@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS tpcc.item (
   i_price NUMERIC(12,2) NOT NULL
 );
 
--- Datos mÃ­nimos de prueba (idempotente)
+-- Datos mínimos de prueba (idempotente)
 INSERT INTO tpcc.item (i_id, i_name, i_price)
 VALUES
   (1,'Item 1',10.00),
