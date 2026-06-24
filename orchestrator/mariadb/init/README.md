@@ -17,7 +17,7 @@ init
 ├── 02_create_databases_nodes.sql
 ├── 03_install_spider.sql
 ├── 04_create_spider_servers.sql
-├── 05_create_tpcc_spider.sql
+├── 05_create_tpcc_spider_tables.sql
 └── 06_tpcc_secondary_indexes.sql
 ```
 
@@ -71,7 +71,7 @@ Estos servidores permiten acceder a los nodos distribuidos y a la base remota.
 
 ---
 
-### 05_create_tpcc_spider.sql
+### 05_create_tpcc_spider_tables.sql
 
 Crea las tablas lógicas Spider dentro de la base de datos:
 

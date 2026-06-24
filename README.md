@@ -53,16 +53,26 @@ Las métricas principales analizadas durante los experimentos son:
 
 Se evaluaron tres tamaños de dataset y tres niveles de concurrencia:
 
-| Dataset | Terminales |
+| Dataset | Escenarios |
 |----------|------------|
 | DS100k | T10, T50, T100 |
 | DS500k | T10, T50, T100 |
 | DS1M | T10, T50, T100 |
 
-Donde:
-
 * **DS** = tamaño del conjunto de datos.
 * **T** = número de terminales concurrentes de BenchBase.
+
+La evaluación experimental comprende un total de nueve escenarios:
+
+* E1_DS100k_T10
+* E2_DS100k_T50
+* E3_DS100k_T100
+* E4_DS500k_T10
+* E5_DS500k_T50
+* E6_DS500k_T100
+* E7_DS1M_T10
+* E8_DS1M_T50
+* E9_DS1M_T100
 
 ---
 
@@ -84,6 +94,57 @@ Arquitectura distribuida basada en:
 * Spider Storage Engine (federación y distribución de tablas)
 
 ---
+
+## Flujo experimental
+
+La ejecución de los experimentos sigue la siguiente secuencia:
+┌─────────────────────┐
+│      databases      │
+│ Parametrización     │
+│ de datasets         │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│     automation      │
+│ Generación y carga  │
+│ de datos            │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│    orchestrator     │
+│ Despliegue de       │
+│ arquitecturas       │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│  benchbase-config   │
+│ Workloads y         │
+│ escenarios          │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│      BenchBase      │
+│ Ejecución de        │
+│ benchmarks          │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│      results        │
+│ Métricas por        │
+│ corrida             │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│ parse_benchbase.ps1 │
+│ Consolidación       │
+│ estadística         │
+└─────────────────────┘
 
 ## Estructura general del repositorio
 
@@ -164,6 +225,7 @@ La ejecución completa de un escenario experimental sigue la siguiente secuencia
 5. Recolección de métricas.
 6. Procesamiento y consolidación de resultados.
 
+
 ---
 
 ## Dependencias y entorno de validación
@@ -181,7 +243,10 @@ Los experimentos fueron desarrollados y validados utilizando el siguiente entorn
 
 La utilización de estas versiones permite reproducir las arquitecturas experimentales y los resultados obtenidos durante la investigación.
 
+
 ## Autor
 
 **José Luis Quizhpe Paqui**
 Universidad Técnica Particular de Loja (UTPL)
+
+

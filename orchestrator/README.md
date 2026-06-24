@@ -46,3 +46,5 @@ automation/
 ```
 
 permitiendo desplegar automáticamente los clústeres, cargar datasets y ejecutar los benchmarks mediante BenchBase.
+
+Esta carpeta constituye la capa de despliegue experimental de la investigación y proporciona los entornos necesarios para la ejecución reproducible de los benchmarks definidos en BenchBase.
